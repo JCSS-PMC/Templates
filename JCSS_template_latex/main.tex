@@ -1,0 +1,27 @@
+\documentclass[a4paper,12pt,twoside]{book}
+
+\usepackage{SimStyle}
+\graphicspath{{./}{./fig/}}
+%%===================================
+\begin{document}
+\pagestyle{empty}
+
+%%%% PRE-BODY 
+\input{./front.tex}\clearpage % This is the titlepage
+\input{./Preface.tex}\clearpage % This is the preface
+\tableofcontents
+\thispagestyle{empty}
+\clearpage
+%%%% BODY 
+\setcounter{page}{0}
+\pagenumbering{arabic}
+\pagestyle{fancy}
+\setcounter{chapter}{-1}
+\input{./body/ch0_foreword.tex}
+\input{./body/ch1_general.tex}
+\input{./body/ch2_requirements.tex}
+\input{./body/ch3_ls.tex}
+%%%% POST-BODY 
+\printbibliography[heading=bibliographysection,title={References}] % Change title of the reference chapter to 'References'
+
+\end{document}

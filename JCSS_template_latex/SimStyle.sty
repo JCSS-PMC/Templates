@@ -1,0 +1,212 @@
+%%%%%
+% Simple Latex template SimStyle.sty
+% Developed by Jorge Mendoza (NTNU), contact: jorge.m.espinosa@ntnu.no
+% version: August, 2019
+%%%%%%
+
+%%% General %%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage[utf8]{inputenc} % This defines the font-encoding you prefer to use
+
+\usepackage{helvet}
+\renewcommand{\familydefault}{\sfdefault}
+% \usepackage{lmodern}  % Typical latex font
+% \usepackage{fourier}  % NTNU font
+\pagestyle{headings}
+\usepackage{amsmath,amsfonts,amsthm,amssymb,mathrsfs,bm,flexisym} % Mathematic environment usepackages
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\usepackage{relsize}
+\usepackage{marvosym}
+\usepackage[pdftex]{graphicx}
+\usepackage{wrapfig}
+\graphicspath{{./fig/}} % Add paths 
+
+\def\mydate{\leavevmode\hbox{\twodigits\day.\twodigits\month.\the\year}}    % Define command \mydate to write the date as dd.mm.yyyy 
+\def\twodigits#1{\ifnum#1<10 0\fi\the#1}
+       
+\usepackage{rotating}
+\usepackage{booktabs}
+\usepackage{url}
+\headheight=40pt
+\usepackage{setspace}
+\usepackage[margin=2.5cm]{geometry}  % Set to chosen document margin
+\linespread{1.1} % Changed from 1.5 for a more compact document
+\pdfcompresslevel=9
+\usepackage{float}
+\renewcommand{\floatpagefraction}{0.6}
+
+\newcommand\blankpage{%
+    \null
+    \thispagestyle{empty}%
+    \addtocounter{page}{-1}%
+    \newpage}
+\usepackage{blindtext}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%% Organization text  %%%%%%%%%%%
+\newenvironment{remark}{\par\mbox{}\par\noindent{\bfseries \emph{Remark}\/}:\normalfont}{\par}
+\newenvironment{defin}{\par\mbox{}\par\noindent\bfseries \emph{\Pointinghand\ }\normalfont}{\par}
+
+\usepackage[format=plain,
+            font=it]{caption} %Caption in italics
+
+\setlength{\parindent}{0pt} % Avoid indentation of new paragraphs. If indention is wished, change 0pt to e.g. 10pt
+\setlength{\parskip}{1em} % Separation between paragraphs
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%% Display of titles %%%%%%%%%%%%
+\renewcommand\thesection{\arabic{section}}
+\usepackage{titlesec}
+\titleformat{\chapter}
+{\normalfont\Large\bfseries\uppercase}{\thechapter.}{0.7em}{}
+\titleformat{\section}
+{\normalfont\large\bfseries\uppercase}{\thechapter.\thesection.}{0.5em}{}
+\titleformat{\subsection}
+{\normalfont\large\bfseries\itshape}{\thesubsection.}{0.5em}{}
+\titleformat{\subsubsection}
+{\normalfont\bfseries\itshape}{\thesubsubsection.}{0.5em}{}
+
+\titlespacing{\chapter}{0pt}{*3}{*2}
+\titlespacing{\section}{0pt}{*3}{*2}
+\titlespacing{\subsection}{0pt}{*3}{*2}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%% FRONT COVER
+\usepackage{eso-pic}
+\newcommand\BackgroundPicture[1]{%
+\put(0,0){%
+\parbox[b][\paperheight]{\paperwidth}{%
+\vfill
+\centering
+\includegraphics[width=\paperwidth,height=\paperheight,%
+keepaspectratio]{#1}%
+\vfill
+}}}
+\newcommand\frontpage[1]{%
+\AddToShipoutPicture*{\BackgroundPicture{./#1}}
+\ClearShipoutPicture
+\clearpage
+\newpage\leavevmode\thispagestyle{empty}\newpage
+\clearpage
+\newpage\leavevmode\thispagestyle{empty}\newpage
+}
+%%%%% BACK COVER
+\usepackage{afterpage} % insert white page
+\newcommand\backpage[1]{%
+    \newpage\leavevmode\thispagestyle{empty}
+    \AddToShipoutPicture*{\BackgroundPicture{#1}}
+    \newpage
+    \addtocounter{page}{-1}%
+    \newpage}
+   
+%%% table of contents
+\renewcommand{\contentsname}{\Large{Table of Contents}}
+\usepackage{titletoc}
+\usepackage{tocloft} % Needed for e.g. \cftchapnumwidth
+\usepackage{calc} % Needed for \widthof{}
+\addtocontents{toc}{~\hfill\textbf{Page}\par} % Display "Pages" over page number column
+
+\titlecontents{section}
+  [3.5em]
+  {\addvspace{\baselineskip}}
+  {\contentslabel[\thecontentslabel.\hfill]{1.5em}\hspace*{0em}}
+  {}
+  {\titlerule*[0.5pc]{.}\contentspage}
+\setcounter{secnumdepth}{3}  % Numbering sections:
+% 0:chapter (not available for \documentclass{article),
+% 1:section,
+% 2:subsection, etc.
+% The default depth is 2, subsection
+\setcounter{tocdepth}{2} % Numbering up to subsection in Table of Content
+% 0:chapter (not available for \documentclass{article),
+% 1:section,
+% 2:subsection, etc.
+% The default depth is 3, subsubsection.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%% Heading and footing definition
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{lipsum}
+\usepackage[bottom]{footmisc}
+\pagestyle{fancy}
+\fancyhf{} %  sets all head and foot elements empty
+% \rightmark contains the current section 
+% \leftmark is the current chapter
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+% \renewcommand{\sectionmark}[1]{\markright{\thesection~-~ #1}} % Input section as \rightmark to be used at the right side of even pages. \rightmark adds name and number of the current next to top-level structure (Section for reports and books; Subsection for articles) in uppercase letters.
+\usepackage{lastpage}
+\renewcommand{\chaptermark}[1]{\markboth{#1}{}} % So that \leftmark contains the chapter title only and not the chapter number
+\renewcommand{\sectionmark}[1]{\markright{#1}} % So that \rightmark contains the section title only and not the section number
+
+\fancyfoot[LE,RO]{\thepage~of \pageref{LastPage}}
+
+\fancypagestyle{plain}{%
+  \fancyhf{}% clear all fields
+  \fancyfoot[LE,RO]{\thepage~of \pageref{LastPage}}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{array}
+\usepackage{longtable}
+\usepackage{makecell} % Break in tables
+\renewcommand\cellalign{tl} % Top left adjustment. Can be modified if needed.
+\usepackage{soul} % Includes line-break in underlying text with command \ul
+\usepackage[normalem]{ulem}% Includes line-break in underlying text with command \uline
+\usepackage{enumerate}[shortlabels]
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%% BibLaTeX
+
+\usepackage[backend=biber,style=authoryear,sorting=nyt,maxcitenames=1,uniquelist=minyear,minbibnames=10,maxbibnames=10,giveninits=true,uniquename=init,dashed=false]{biblatex}
+\addbibresource{./refs.bib}
+
+\DeclareSourcemap{ % Used when .bib/Bibliography is compiled, not when document is
+    \maps{
+        \map{ % Replaces '{\_}', '{_}' or '\_' with just '_'
+            \step[fieldsource=url,
+                  match=\regexp{\{\\\_\}|\{\_\}|\\\_},
+                  replace=\regexp{\_}]
+        }
+        \map{ % Replaces '{\%}', '{%}' with just '%'
+            \step[fieldsource=url,
+                  match=\regexp{\{\\\%\}|\{\%\}},
+                  replace=\regexp{\%}]
+        }
+    }
+}
+
+\defbibheading{bibliographysection}{%
+  \chapter*{#1}%
+  \addcontentsline{toc}{chapter}{#1}%
+  \markboth{#1}{#1}%
+}
+\setlength\bibitemsep{\itemsep}
+
+\setcounter{biburllcpenalty}{7000}
+\setcounter{biburlucpenalty}{8000}
+\urlstyle{same}
+
+\usepackage{listings}
+
+\usepackage{color} %red, green, blue, yellow, cyan, magenta, black, white
+\definecolor{mygreen}{RGB}{28,172,0} % color values Red, Green, Blue
+\definecolor{mylilas}{RGB}{170,55,241}
+\lstset{language=Matlab,%
+    basicstyle={\small\color{black}},
+    breaklines=true,%
+    morekeywords={matlab2tikz},
+    keywordstyle={\small\color{blue}},%
+    morekeywords=[2]{1}, keywordstyle=[2]{\small\color{black}},
+    identifierstyle=\color{black},%
+    stringstyle={\small\color{mylilas}},
+    commentstyle={\small\color{mygreen}},%
+    showstringspaces=false,%without this there will be a symbol in the places where there is a space
+    numbers=left,%
+    numberstyle={\small \color{black}},% size of the numbers
+    numbersep=9pt, % this defines how far the numbers are from the text
+    emph=[1]{for,end,break},emphstyle=[1]{\small\color{red}}, %some words to emphasise
+    %emph=[2]{word1,word2}, emphstyle=[2]{style},    
+}
+
